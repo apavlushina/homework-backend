@@ -17,6 +17,12 @@ const Movie = db.define("movie", {
 });
 
 Movie.sync()
+  .then(() => console.log("Model synchronization completes"))
+  .then(() => Movie.destroy({ where: { title: "Blade Runner 2049" } }))
+  .then(() =>
+    Movie.destroy({ where: { title: "Kingsman: The Golden Circle" } })
+  )
+  .then(() => Movie.destroy({ where: { title: "Tulip Fever" } }))
   .then(function() {
     // Table created
     Movie.create({

@@ -24,7 +24,7 @@ router.get("/movies/:movieId", (req, res, next) => {
         res.json(movie);
       }
     })
-    .catch(next);
+    .catch(err => next(err));
 });
 
 router.put("/movies/:movieId", (req, res, next) => {
@@ -36,7 +36,23 @@ router.put("/movies/:movieId", (req, res, next) => {
         res.status(404).end();
       }
     })
-    .catch(next);
+    .catch(err => next(err));
+});
+
+router.delete("/movies/:movieId", (req, res, next) => {
+  Movie.findByPk(req.params.movieId)
+    .then(movie => {
+      if (movie) {
+        movie
+          .destroy(req.params.movieId)
+          .then(
+            res.send(` ${req.params.movieId} - movie with this ID deleted`)
+          );
+      } else {
+        res.status(404).end();
+      }
+    })
+    .catch(err => next(err));
 });
 
 module.exports = router;
