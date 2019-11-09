@@ -4,6 +4,10 @@ const port = process.env.PORT || 4000;
 const db = require("./db");
 const Movie = require("./model");
 
+const bodyParser = require("body-parser");
+const parserMiddleware = bodyParser.json();
+app.use(parserMiddleware);
+
 const movieRouter = require("./router");
 app.use(movieRouter);
 

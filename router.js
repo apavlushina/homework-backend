@@ -9,11 +9,34 @@ router.get("/movies", (req, res, next) => {
     .catch(err => next(err));
 });
 
-// router.post("/image", auth, (req, res, next) => {
-//   Image.create(req.body)
-//     .then(console.log(req.body))
-//     .then(image => res.json(image))
-//     .catch(err => next(err));
-// });
+router.post("/movies", (req, res, next) => {
+  Movie.create(req.body)
+    .then(movie => res.json(movie))
+    .catch(err => next(err));
+});
+
+router.get("/movies/:movieId", (req, res, next) => {
+  Movie.findByPk(req.params.movieId)
+    .then(movie => {
+      if (!movie) {
+        res.status(404).end();
+      } else {
+        res.json(movie);
+      }
+    })
+    .catch(next);
+});
+
+router.put("/movies/:movieId", (req, res, next) => {
+  Movie.findByPk(req.params.movieId)
+    .then(movie => {
+      if (movie) {
+        movie.update(req.body).then(movie => res.json(movie));
+      } else {
+        res.status(404).end();
+      }
+    })
+    .catch(next);
+});
 
 module.exports = router;
