@@ -46,7 +46,7 @@ router.delete("/movies/:movieId", (req, res, next) => {
         movie
           .destroy(req.params.movieId)
           .then(
-            res.send(` ${req.params.movieId} - movie with this ID deleted`)
+            res.send(` ${req.params.movieId} - movie with this ID is deleted`)
           );
       } else {
         res.status(404).end();

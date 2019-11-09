@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 4000;
-const db = require("./db");
 const Movie = require("./model");
 
 const bodyParser = require("body-parser");

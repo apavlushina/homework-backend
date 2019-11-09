@@ -1,5 +1,8 @@
 const Sequelize = require("sequelize");
-const db = require("./db");
+const databaseUrl =
+  process.env.DATABASE_URL ||
+  "postgres://postgres:secret@localhost:5432/postgres";
+const db = new Sequelize(databaseUrl);
 
 const Movie = db.define("movie", {
   title: {
@@ -47,6 +50,7 @@ Movie.sync()
       synopsis:
         "The young wife of a wealthy older burgher in 17th century Amsterdam is tempted into adultery when an artist. The lovers hatch a scheme together to fund an escape by investing in tulip bulbs at the height of the craze. "
     });
-  });
+  })
+  .catch(console.error);
 
 module.exports = Movie;
